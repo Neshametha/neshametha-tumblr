@@ -1,0 +1,938 @@
+<!DOCTYPE HTML PUBLIC>
+<html lang = "en">
+
+    <!-- THEME BY NESHAMETHA 2021 -->
+    <!-- you can use whatever you want from this base code by viewing the 
+    source, but please credit me if you do, i'd really appreciate it! -->
+    
+    <!-- scripts -->
+    <!-- audio player -->
+    <script src = 
+            "https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js">
+    </script>
+    
+    <script>
+        $(document).ready(function() {
+            $('iframe.tumblr_audio_player').load( function() {
+                $('iframe.tumblr_audio_player').contents().find("head")
+                    .append($("<style type = 'text/css'> .audio-player {background: #d8ebe6 !important; width: 100%; height: 85px !important;} .play-pause{color:#57beab !important;}</style>"));
+                });
+            });
+    </script>
+    <!-- audio player -->
+    
+    <!-- tumblr tooltip -->
+    <script type = "text/javascript"
+            src = "https://static.tumblr.com/tiu5k68/xTkm8wqw2/tumblr-title-qtip.js">
+    </script>
+    <!-- tumblr tooltip -->
+
+    <!-- masonry: creatre.tumblr.com/post/93242735110 -->
+    {block:IndexPage}
+        <script type = "text/javascript" src = 
+                "https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js">
+        </script>
+        
+        <script type = "text/javascript" src = 
+                "https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js">
+        </script>
+        
+        <script type = "text/javascript" src = 
+                "https://static.tumblr.com/me5sfsd/12Qlmj66n/script.js">
+        </script>
+        
+        <script type = "text/javascript">
+            $(window).load(function() {
+                var $wall = $('#posts');
+                
+                $wall.imagesLoaded(function() {
+                    $wall.masonry({
+                        itemSelector: '#entry',
+                        isAnimated : true
+                    });
+                });
+                
+                $wall.infinitescroll( {
+                    navSelector : "div#navigation",
+                    nextSelector : "div#navigation a#nextPage",
+                    itemSelector : '#entry',
+                    loadingImg : "",
+                    loadingText : "",
+                    donetext : "",
+                    extraScrollPx : 0,
+                    bufferPx : 10000,
+                    debug : false,
+                    errorCallback: function() {
+                        $('#infscr').animate({opacity: .7}, 2000)
+                                .fadeOut('normal');
+                    }
+                },
+                
+                function( newElements ) {
+                    var $newElems = $( newElements );
+                    
+                    $newElems.hide();
+                    
+                    $newElems.imagesLoaded(
+                        function() {
+                            $wall.masonry(
+                                'appended',
+                                $newElems, {
+                                    isAnimated: true,
+                                    
+                                    animationOptions: {
+                                        duration: 250,
+                                        easing: 'linear',
+                                        queue: false
+                                    }
+                                },
+                                
+                                function() {
+                                    $newElems.fadeIn('slow');
+                                }
+                            );
+                        }
+                    );
+                });
+                
+                $('#posts').show(500);
+            });
+        </script>
+    {/block:IndexPage}
+    <!-- masonry -->
+    <!-- scripts -->
+
+    <!-- header -->
+    <head>
+        <meta charset = "utf-8" />
+        <meta name = "theme-color" content = "#000000" />
+        <meta name = "viewport"
+                content = "width=device-width, initial-scale = 1, 
+                shrink-to-fit = yes" />
+        <meta name = "description" content = "{MetaDescription}" />
+        
+        <link rel = "alternate" href = "{RSS}" 
+                type = "application/rss+xml" />
+        <link rel = "shortcut icon" href = "{Favicon}" />
+        <link rel = "stylesheet" 
+                href = "https://fonts.googleapis.com/css?family=Roboto" />
+        <link rel = "stylesheet" href = 
+                "https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" />
+    
+    	<title>{Title}</title>
+    </head>
+    <!-- header -->
+
+    <!-- style -->
+    <style>
+        /** body **/
+        body {
+            background: #101418;
+            
+            color: #696969;
+            font-family: "Open Sans", "Arial", "Sans-Serif";
+            font-size: 12px;
+        }
+    
+        /* bold */
+        b, strong, bold {
+            color: #d8ebe6;
+        }
+        
+        /* italics */
+        i, em {
+            color: #d8ebe6;
+        }
+    
+        /* underline */
+        u, underline {
+            color: #d8ebe6;
+            border-bottom: 1px dotted #d8ebe6;
+            text-decoration: none;
+        }
+        
+        u:hover, underline:hover {
+            color: #d8ebe6;
+            border-bottom: 1px dotted #57beab;
+            text-decoration: none;
+        }
+        
+        /* strikethru */
+        s, strike {
+            color: #d8ebe6;
+        }
+    
+        /* links */
+        a {
+            color: #d8ebe6;
+            text-decoration: none;
+            
+            -webkit-transition-duration: .5s;
+            -moz-transition-duration: .5s;
+            -o-transition-duration: .5s;
+        }
+    
+        a:hover {
+            color: #57beab;
+        }
+    
+        /* lists */
+        ol {
+            padding: 14px;
+        }
+        
+        ul {
+            padding: 14px;
+        }
+    
+        /** navigation **/
+        #side {
+            position: fixed;
+            width: 160px;
+            
+            margin-left: 90px;
+            bottom: 49px;
+        }
+        
+        #hintofmint {
+            opacity: 1;
+            position: absolute;
+            
+            width: 220px;
+            height: 335px;
+            
+            border: 1px solid #696969;
+            padding: 0px;
+            
+            background: #101418;
+            
+            -webkit-transition-duration: .5s;
+            -moz-transition-duration: .5s;
+            -o-transition-duration: .5s;
+        }
+        
+        #hintofmint:hover {
+            opacity: 0;
+        }
+        
+        #hintofmint .color {
+            opacity: 1;
+            height: 223px;
+            
+            background: #d8ebe6;
+        }
+        
+        #hintofmint .logo {
+            opacity: 1;
+            position: absolute;
+            
+            width: 176px;
+            
+            padding: 14px 0px 14px 14px;
+            
+            text-align: left;
+            line-height: 1;
+            
+            color: #fff;
+            font-family: "Roboto", "Helvetica", "Arial", "Sans-Serif";
+            font-size: 28px;
+        }
+        
+        #floridakeys {
+            opacity: 1;
+            
+            width: 220px;
+            height: 335px;
+            
+            border: 1px solid #696969;
+            padding: 0px;
+            
+            background: #101418;
+            
+            -webkit-transition-duration: .5s;
+            -moz-transition-duration: .5s;
+            -o-transition-duration: .5s;
+        }
+        
+        #floridakeys .color {
+            opacity: 1;
+            height: 223px;
+            
+            background: #57beab;
+        }
+        
+        #floridakeys .logo {
+            opacity: 1;
+            width: 176px;
+            
+            padding: 14px 0px 14px 14px;
+            
+            text-align: left;
+            line-height: 1;
+            
+            color: #fff;
+            font-family: "Roboto", "Helvetica", "Sans-Serif";
+            font-size: 28px;
+        }
+        
+        #nav {
+            position: fixed;
+            z-index: -99;
+            
+            bottom: 42px;
+            
+            width: auto;
+        }
+        
+        .link {
+            padding: 7px;
+            border: 1px solid #696969;
+            margin-bottom: 7px;
+            margin-left: 245px;
+            
+            background: #101418;
+            
+            -webkit-transition-duration: .5s;
+            -moz-transition-duration: .5s;
+            -o-transition-duration: .5s;
+        }
+        
+        .link:hover {
+            border: 1px solid #57beab;
+        }
+
+        /** posts **/
+        #posts {
+            float: left;
+            position: relative;
+            
+            width: 1000px;
+            
+            margin-top: 49px;
+            margin-left: 525px;
+        }
+
+        /* blockquotes */
+        blockquote {
+            border-left: 1px dotted #d8ebe6;
+            margin-left: 0px;
+            
+            -webkit-transition-duration: .5s;
+            -moz-transition-duration: .5s;
+            -o-transition-duration: .5s;
+        }
+        
+        #entry {
+            float: left;
+            position: relative;
+            
+            width: 250px;
+            {block:PermalinkPage}
+                width: 500px;
+            {/block:PermalinkPage}
+            
+            border: 1px solid #696969;
+            margin-bottom: 7px;
+            margin-left: 7px;
+            
+            line-height: 1;
+            overflow: hidden;
+            
+            -webkit-transition-duration: .5s;
+            -moz-transition-duration: .5s;
+            -o-transition-duration: .5s;
+        }
+        
+        {block:PermalinkPage}
+            #entry {
+                position: absolute;
+            }
+        {/block:PermalinkPage}
+        
+        #entry:hover {
+            border: 1px solid #57beab;
+        }
+        
+        #entry:hover blockquote {
+            border-left: 1px dotted #57beab;
+        }
+        
+        /* text, link, quote, chat */
+        .title {
+            padding: 7px 7px 0px 7px;
+            
+            text-align: left;
+            line-height: 1;
+            
+            color: #d8ebe6;
+            font-family: "Open Sans", "Helvetica", "Sans-Serif";
+            font-size: 28px;
+        }
+        
+        /* quote */
+        .source {
+            padding: 7px;
+            
+            text-align: right;
+        }
+        
+        /* chat */
+        table {
+            border-left: 1px dotted #d8ebe6;
+            margin: 7px;
+            
+            font-size: 12px;
+            
+            -webkit-transition-duration: .5s;
+            -moz-transition-duration: .5s;
+            -o-transition-duration: .5s;
+        }
+        
+        #entry:hover table {
+            border-left: 1px dotted #57beab;
+        }
+
+        .name {
+            padding-bottom: 7px;
+            padding-left: 7px;
+            
+            color: #d8ebe6;
+            
+            -webkit-transition-duration: .5s;
+            -moz-transition-duration: .5s;
+            -o-transition-duration: .5s;
+        }
+        
+        #entry:hover .name {
+            color: #57beab;
+        }
+        
+        .dialog {
+            padding-bottom: 7px;
+            padding-left: 7px;
+            
+            color: #696969;
+        }
+        
+        /* ask */
+        .wrapper {
+            overflow: hidden;
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            
+            width: 64px;
+            height: 64px;
+        }
+    
+        .wrapper img {
+            width: 100%;
+            height: auto;
+        }
+        
+        .question {
+            display: inline-block;
+            
+            width: auto;
+            min-height: 57px;
+            
+            padding: 0px 7px;
+            border-left: 1px dotted #d8ebe6;
+            margin-top: 7px;
+            margin-left: 70px;
+            
+            text-align: left;
+            
+            -webkit-transition-duration: .5s;
+            -moz-transition-duration: .5s;
+            -o-transition-duration: .5s;
+        }
+        
+        #entry:hover .question {
+            border-left: 1px dotted #57beab;
+        }
+        
+        .question p {
+            display: inline-block;
+            position: relative;
+            
+            margin: 0px;
+            
+            color: #d8ebe6;
+            
+            -webkit-transition-duration: .5s;
+            -moz-transition-duration: .5s;
+            -o-transition-duration: .5s;
+        }
+        
+        #entry:hover .question p {
+            color: #57beab;
+        }
+        
+        /* photo, photoset, video */
+        .visual {
+            display: inline-block;
+            position: relative;
+            
+            padding: 0px 0px 7px 0px;
+        }
+        
+        figure img {
+            display: inline-block;
+            position: relative;
+            
+            max-width: 250px;
+            {block:PermalinkPage}
+                max-width: 500px;
+            {/block:PermalinkPage}
+            height: auto;
+
+            margin: 7px -7px 7px -7px;
+        }
+        
+        .audio {
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+            
+            height: 85px;
+            
+            padding: 0px 0px 7px 0px;
+        }
+        
+        .caption {
+            width: 250px;
+            {block:PermalinkPage}
+                width: 500px;
+            {/block:PermalinkPage}
+            
+            padding: 0px 7px;
+        }
+        
+        .caption blockquote {
+            padding-left: 7px;
+        }
+        
+        .caption blockquote img {
+            padding-left: 7px;
+        }
+
+        /* post info */
+        #info {
+            width: 236px;
+            {block:PermalinkPage}
+                width: 486px;
+            {/block:PermalinkPage}
+
+            border-top: 1px dotted #d8ebe6;
+            margin: 0px 7px;
+            
+            -webkit-transition-duration: .5s;
+            -moz-transition-duration: .5s;
+            -o-transition-duration: .5s;
+        }
+        
+        #entry:hover #info {
+            border-top: 1px dotted #57beab;
+        }
+        
+        #reblog {
+            width: 236px;
+            {block:PermalinkPage}
+                width: 486px;
+            {/block:PermalinkPage}
+
+            padding-bottom: 7px;
+            margin: 0px 7px;
+
+            -webkit-transition-duration: .5s;
+            -moz-transition-duration: .5s;
+            -o-transition-duration: .5s;
+        }
+        
+        .info {
+            float: right;
+            
+            padding: 3px 3px 0px 3px;
+            
+            text-align: right;
+        }
+        
+        .notes {
+            width: 486px;
+
+            margin: 0px 7px;
+            
+            list-style: none;
+            
+            -webkit-transition-duration: .5s;
+            -moz-transition-duration: .5s;
+            -o-transition-duration: .5s;
+        }
+        
+        .retags a {
+            color: #d8ebe6;
+        }
+        
+        .retags a:hover {
+            color: #57beab;
+        }
+    
+        /* infinite scrolling */
+        #infscr {
+            position: fixed;
+            z-index: 999;
+            
+            bottom: 40px;
+            
+            width: 100%;
+            
+            text-align: center;
+            
+            color: #101418;
+            font-family: "Roboto", "Helvetica", "Sans-Serif";
+            font-size: 10px;
+            text-transform: uppercase;
+        }
+        
+        #infscr i {
+            font-size: 10px;
+        }
+        
+        #infscr img {
+            display: none;
+        }
+    </style>
+    <!-- style -->
+
+    <!-- body -->
+    <body>
+        <!-- statcounter -->
+        <script type = "text/javascript">
+            var sc_project = 7367775; 
+            var sc_invisible = 1;
+            var sc_security = "fee5d26d";
+        </script>
+        
+        <script type = "text/javascript"
+                src = "https://www.statcounter.com/counter/counter.js">
+        </script>
+    
+        <noscript>
+            <a href = "https://statcounter.com/tumblr/"
+                    target = "_blank">
+                <img class = "statcounter" src = 
+                        "https://c.statcounter.com/7367775/0/fee5d26d/1">
+            </a>
+        </noscript>
+        <!-- statcounter -->
+    
+        <!-- sidebar -->
+        <div id="side">
+            <div id = "hintofmint">
+                <div class = "color"></div>
+                
+                <div class = "logo">
+                    <img width = "176px"
+                            src = "https://66.media.tumblr.com/75d5cb976877fa98334a901af099b503/7551faf2c19fa6ee-f3/s540x810/dd500a67a06a5aca53211fda8a451317f65dfaee.png">
+                    11-4805 TCX
+                    <br>Hint of Mint
+                </div>
+            </div>
+            
+            <div id = "floridakeys">
+                <div class = "color"></div>
+                
+                <div class = "logo">
+                    <img width = "176px"
+                            src = "https://66.media.tumblr.com/75d5cb976877fa98334a901af099b503/7551faf2c19fa6ee-f3/s540x810/dd500a67a06a5aca53211fda8a451317f65dfaee.png">
+                    15-5416 TCX
+                    <br>Florida Keys
+                </div>
+            </div>
+            
+            <div id = "nav">
+                <div class = "link">
+                    <a href="/">home</a>
+                </div>
+                
+                <div class = "link">
+                    <a href="/about">about</a>
+                </div>
+                
+                <div class = "link">
+                    <a href="/ask">ask</a>
+                </div>
+                
+                <div class = "link">
+                    <a href="/archive">archive</a>
+                </div>
+                
+                <div class = "link">
+                    <a href="/tagged/me">my face</a>
+                </div>
+                
+                <div class = "link">
+                    <a href="/tagged/my art">my art</a>
+                </div>
+                
+                <div class = "link">
+                    <a href="https://instagram.com/neshametha">
+                        instagram
+                    </a>
+                </div>
+                
+                <div class = "link">
+                    <a href="https://twitter.com/neshametha">twitter</a>
+                </div>
+                
+                <div class = "link">
+                    <a href="https://ko-fi.com/neshametha">donate</a>
+                </div>
+            </div>
+        </div>
+        <!-- sidebar -->
+    
+        <!-- posts -->
+        <div id = "posts">
+            {block:Posts}
+                <div id = "entry">
+                    <!-- text -->
+                    {block:Text}
+                        {block:Title}
+                            <div class = "title">{Title}</div>
+                        {/block:Title}
+                        
+                        <div class = "caption">{Body}</div>
+                    {/block:Text}
+                    
+                    <!-- links -->
+                    {block:Link}
+                        <div class = "title">
+                            <a href = "{URL}">{Name}</a>
+                        
+                        </div>
+        
+                        {block:Description}
+                            <div class = "caption">{Description}</div>
+                        {/block:Description}
+                    {/block:Link}
+                    
+                    <!-- quote -->
+                    {block:Quote}
+                        <div class = "title">“{Quote}”</div>
+                        
+                        {block:Source}
+                            <div class = "source">—{Source}</div>
+                        {/block:Source}
+                    {/block:Quote}
+                    
+                    <!-- chat -->
+                    {block:Chat}
+                        {block:Title}
+                            <div class = "title">{Title}</div>
+                        {/block:Title}
+    
+                        <table>
+                            {block:Lines}
+                                <tr>
+                                    {block:Label}
+                                        <td class = "name">{Label}</td>
+                                    {block:Label}
+        
+                                    <td class = "dialog">{Line}</td>
+                                </tr>
+                            {/block:Lines}
+                        </table>
+                    {/block:Chat}
+                    
+                    <!-- ask -->
+                    {block:Answer}
+                        <div class = "visual">
+                            <div class = "wrapper">
+                                <img src = "{AskerPortraitURL-64}">
+                            </div>
+        
+                            <div class = "question">
+                                {Asker} asked: {Question}
+                            </div>
+                            
+                            <div class = "caption" 
+                                    style = "padding-top: 0px;">
+                                {Answer}
+                            </div>
+                        </div>
+                    {/block:Answer}
+                    
+                    <!-- photo -->
+                    {block:Photo}
+                        {block:IndexPage}
+                            <center>
+                                {LinkOpenTag}
+                                <img src = "{PhotoURL-250}" 
+                                        class = "visual" width = "250px"
+                                        height = "auto">
+                                {LinkCloseTag}
+                            </center>
+                        {/block:IndexPage}
+                        
+                        {block:PermalinkPage}
+                            <center>
+                                {LinkOpenTag}
+                                <img src = "{PhotoURL-500}" 
+                                        class = "visual" />
+                                {LinkCloseTag}
+                            </center>
+                        {/block:PermalinkPage}
+                        
+                        {block:Caption}
+                            <div class = "caption">{Caption}</div>
+                        {/block:Caption}
+                    {/block:Photo}
+                    
+                    <!-- photoset -->
+                    {block:Photoset}
+                        {block:IndexPage}
+                            <div class = "visual">
+                                <center>{Photoset-250}</center>
+                            </div>
+                        {/block:IndexPage}
+                        
+                        {block:PermalinkPage}
+                            <div class = "visual">
+                                <center>{Photoset-500}</center>
+                            </div>
+                        {/block:PermalinkPage}
+                        
+                        {block:Caption}
+                            <div class = "caption">{Caption}</div>
+                        {/block:Caption}
+                    {/block:Photoset}
+        
+                    <!-- video -->
+                    {block:Video}
+                        {block:IndexPage}
+                            <div class = "visual">
+                                <center>{Video-250}</center>
+                            </div>
+                        {/block:IndexPage}
+                        
+                        {block:PermalinkPage}
+                            <div class = "visual">
+                                <center>{Video-500}</center>
+                            </div>
+                        {/block:PermalinkPage}
+    
+                        {block:Caption}
+                            <div class="caption">{Caption}</div>
+                        {/block:Caption}
+                    {/block:Video}
+        
+                    <!-- audio -->
+                    {block:Audio}
+                        {block:IndexPage}
+                            <div class = "audio" 
+                                    style = "height: 85px !important;">
+                                {AudioEmbed-250}
+                            </div>
+                        {/block:IndexPage}
+                        
+                        {block:PermalinkPage}
+                            <div class = "audio" 
+                                    style = "height: 85px !important;">
+                                {AudioEmbed-500}
+                            </div>
+                        {/block:PermalinkPage}
+    
+                        {block:Caption}
+                            <div class = "caption">{Caption}</div>
+                        {/block:Caption}
+                    {/block:Audio}
+        
+                    <div id = "info">
+                        <div class = "info">
+                            {LikeButton size=15 color=White}
+                        </div>
+    
+                        <div class = "info">
+                            {ReblogButton size=15 color=White}
+                        </div>
+    
+                        <div class = "info">
+                            <a href = "{Permalink}">
+                                {NoteCountWithLabel}
+                            </a>
+                        </div>
+    
+                        <div class = "info">
+                            <a href = "{Permalink}">
+                                {MonthNumberWithZero}/{DayOfMonthWithZero}/{Year}
+                            </a>
+                        </div>
+                    </div>
+
+                    {block:PermalinkPage}
+                        {block:RebloggedFrom}
+                            <br /><p><div id = "reblog" 
+                                    style = "float: right;">
+                                <div class = "info">
+                                    via <a href = "{ReblogParentURL}" 
+                                            target = "_blank">
+                                        {ReblogParentName}
+                                    </a>
+                                </div>
+                                
+                                {block:ContentSource}
+                                    <div class = "info">
+                                        origin <a href = "{SourceURL}" 
+                                                target = "_blank">
+                                            {SourceTitle}
+                                        </a>
+                                    </div>
+                                {/block:ContentSource}
+                            </div>
+                        {/block:RebloggedFrom}
+                    {/block:PermalinkPage}
+        
+                    {block:HasTags}
+                        <br /><p><div id = "reblog" 
+                                style = "float: right;">
+                            <div class = "info">
+                                {block:Tags}
+                                    <a href = "{TagURL}"> #{Tag}</a>
+                                {/block:Tags}
+                            </div>
+                        </div></p>
+                    {/block:HasTags}
+                    
+                    {block:PostNotes}
+                        {PostNotes}
+                    {/block:PostNotes}
+                </div>
+            {/block:Posts}
+        </div>
+    
+        {block:IndexPage}
+            <div class="column navigation" id = "navigation">
+                {block:PreviousPage}
+                    <a href = "{PreviousPage}" class = "navigate">
+                {/block:PreviousPage}
+                {block:PreviousPage}
+                    </a>
+                {/block:PreviousPage}
+                
+                {block:NextPage}
+                    <a href = "{NextPage}" class = "navigate" 
+                            id = "nextPage">
+                {/block:NextPage}
+                {block:NextPage}
+                    </a>
+                {/block:NextPage}
+            </div>
+        {/block:IndexPage}
+        
+        {block:PermalinkPage}
+        
+    </body>
+    <!-- body -->
+</html>
